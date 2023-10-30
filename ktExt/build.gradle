@@ -1,11 +1,22 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
-// JitPack Maven
-//apply plugin: 'com.github.dcendents.android-maven'
-// Your Group
-group='com.github.LvZhenDong'
+
+afterEvaluate {
+    publishing{
+        publications{
+            release(MavenPublication){
+                from components.release
+
+                groupId = 'com.kklv.utils'
+                artifactId = 'ktExt'
+                version = '1.0.3'
+            }
+        }
+    }
+}
 
 android {
     namespace 'com.kklv.ktext'
