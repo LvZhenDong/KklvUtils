@@ -5,14 +5,13 @@ plugins {
 }
 
 afterEvaluate {
-    publishing{
-        publications{
-            release(MavenPublication){
+    publishing {
+        publications {
+            release(MavenPublication) {
                 from components.release
-
                 groupId = 'com.kklv.utils'
                 artifactId = 'ktExt'
-                version = '1.0.3'
+                version = '1.0.5'
             }
         }
     }
