@@ -6,7 +6,6 @@ import android.util.TypedValue
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import kotlin.math.roundToInt
 
 /**
@@ -59,3 +58,16 @@ val Int.dpFloat: Float
             Resources.getSystem().displayMetrics
         )
     }
+
+/**
+ * 带Lifecycle的OnOffsetChangedListener
+ */
+fun <T : AppBarLayout> T.addLifecycleOnOffsetChangedListener(lifecycleOwner: LifecycleOwner,listener: AppBarLayout.OnOffsetChangedListener) {
+    this.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+        if (lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+            listener.onOffsetChanged(appBarLayout, verticalOffset)
+        }else{
+            Log.i("kklv","not STARTED")
+        }
+    })
+}
